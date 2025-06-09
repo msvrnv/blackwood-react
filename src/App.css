@@ -3,7 +3,12 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  background: radial-gradient(circle 150px at 75% 30%, #151515, #060606) no-repeat;
+  background: #060606FF;
   background-size: cover;
   font-family: "Roboto", sans-serif;
+}
+
+#root {
+  margin: 0 auto;
+  overflow: hidden;
 }

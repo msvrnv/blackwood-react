@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 type HeroSlide = {
     title: string;
@@ -14,19 +14,20 @@ type HeroProps = {
     slides: HeroSlide[];
 };
 
-const Hero: React.FC<HeroProps> = ({ slides }) => {
+const Hero: React.FC<HeroProps> = ({slides}) => {
     const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex((prevIndex) => (prevIndex + 1) % slides.length);
-        }, 5000); // 5 seconds
+        }, 5000);
 
         return () => clearInterval(interval); // Clean up on unmount
     }, [slides.length]);
 
     return (
-        <div className="mt-5 p-[1px] rounded-[45px] bg-gradient-to-r from-[#666666] via-black to-[#666666] max-lg:rounded-none">
+        <div
+            className="mt-5 p-[1px] rounded-[45px] bg-gradient-to-r from-[#666666] via-black to-[#666666] max-lg:rounded-none">
             <div className="bg-black rounded-[45px] max-lg:rounded-none">
                 <div className="relative overflow-hidden rounded-[45px] max-lg:rounded-none">
                     {slides.map((slide, index) => (
@@ -39,9 +40,10 @@ const Hero: React.FC<HeroProps> = ({ slides }) => {
                             <div
                                 className="flex p-[100px] h-[500px] items-stretch rounded-[45px] bg-no-repeat bg-center bg-[length:110%] text-white px-6 py-4 overflow-hidden transition-[background-position] duration-300 ease-in-out
                                     max-lg:flex-col max-lg:h-auto max-lg:rounded-none max-lg:bg-cover max-lg:px-5 max-lg:pb-0"
-                                style={{ backgroundImage: slide.background }}
+                                style={{backgroundImage: slide.background}}
                             >
-                                <div className="flex flex-col my-10 justify-center items-center max-w-[500px] px-[60px] pr-[40px] z-10 box-border max-lg:max-w-full max-lg:px-5">
+                                <div
+                                    className="flex flex-col my-10 justify-center items-center max-w-[500px] px-[60px] pr-[40px] z-10 box-border max-lg:max-w-full max-lg:px-5">
                                     <h1 className="text-[2.5rem] mb-5 text-center uppercase max-lg:text-[1.8rem]">
                                         {slide.title}
                                     </h1>
@@ -58,7 +60,8 @@ const Hero: React.FC<HeroProps> = ({ slides }) => {
                                             </li>
                                         ))}
                                     </ul>
-                                    <button className="bg-white/10 border border-white text-white px-6 py-3 rounded-full text-[1rem] font-bold uppercase w-full hover:bg-white/25 transition duration-300">
+                                    <button
+                                        className="bg-white/10 border border-white text-white px-6 py-3 rounded-full text-[1rem] font-bold uppercase w-full hover:bg-white/25 transition duration-300">
                                         {slide.buttonText}
                                     </button>
                                 </div>

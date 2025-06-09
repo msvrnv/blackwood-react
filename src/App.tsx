@@ -6,6 +6,7 @@ import heroBg from './assets/hero-section-background.png';
 import housewife from './assets/housewife.png';
 import hijabi from './assets/hijabi.png';
 import pregnant from './assets/pregnant.png';
+import ProductList from "./components/ProductList.tsx";
 
 function App() {
     const heroSlides = [
@@ -55,6 +56,7 @@ function App() {
             <div className="mx-auto my-5 max-w-[1152px] max-lg:m-5">
                 <Navbar/>
                 <Hero slides={heroSlides}/>
+                <ProductList />
             </div>
         </HashRouter>
     )
