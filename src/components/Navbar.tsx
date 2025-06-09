@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
-import { getFullPath } from "../constants/paths";
 import * as React from "react";
+import {Link} from "react-router-dom";
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -54,13 +54,7 @@ function Navbar() {
                 </div>
                 <div className="max-md:hidden">
                     {menuItems.map(item => (
-                        <a
-                            key={item.text}
-                            href={getFullPath(item.route)}
-                            className="mx-[15px] text-white no-underline font-normal transition-colors duration-300 hover:text-[#ccc]"
-                        >
-                            {item.text}
-                        </a>
+                        <Link key={item.text} to={item.route} onClick={closeMenu} className="mx-[15px] text-white no-underline font-normal transition-colors duration-300 hover:text-[#ccc]">{item.text}</Link>
                     ))}
                 </div>
                 <div className="max-md:hidden flex items-center gap-2 bg-[#222] px-3 py-1.5 rounded-[20px]">
@@ -80,14 +74,7 @@ function Navbar() {
                 }`}
             >
                 {menuItems.map(item => (
-                    <a
-                        key={item.text}
-                        href={getFullPath(item.route)}
-                        onClick={closeMenu}
-                        className="text-white px-5 py-[15px] no-underline border-b border-[#333] hover:bg-[#222]"
-                    >
-                        {item.text}
-                    </a>
+                    <Link key={item.text} to={item.route} onClick={closeMenu} className="text-white px-5 py-[15px] no-underline border-b border-[#333] hover:bg-[#222]">{item.text}</Link>
                 ))}
             </div>
         </div>
