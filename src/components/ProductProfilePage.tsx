@@ -233,10 +233,77 @@ const ProductProfilePage: React.FC<ProductProfilePageProps> = ({product}) => {
 
     return (
         <div className="bg-[#121212] text-white rounded-4xl mt-4">
-            <div className="relative h-[200px] w-full bg-cover bg-center rounded-t-4xl"
+            <div className="block md:hidden w-full bg-black text-white rounded-t-4xl overflow-hidden relative">
+
+                {/* Background with blur overlay */}
+                <div
+                    className="w-full bg-cover bg-center rounded-t-4xl"
+                    style={{ backgroundImage: `url(${product.image})` }}
+                >
+                    <div className="w-full h-full bg-black/60 backdrop-blur-sm rounded-t-4xl">
+                        <div className="relative z-10 flex flex-col items-center pt-6 px-4 pb-6">
+
+                            {/* Flag in corner */}
+                            <div className="w-full flex justify-end mb-2">
+                                <img
+                                    src={product.flag}
+                                    alt="flag"
+                                    className="w-8 h-5 border border-white rounded-sm"
+                                />
+                            </div>
+
+                            {/* Avatar */}
+                            <button
+                                onClick={() => setShowFullImage(true)}
+                                className="hover:ring-4 hover:ring-pink-500/30 transition-all rounded-full"
+                            >
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="w-24 h-24 rounded-full border-4 border-white object-cover shadow-lg"
+                                />
+                            </button>
+
+                            {/* Name & handle */}
+                            <h1 className="mt-4 text-2xl font-semibold text-center">{product.name}</h1>
+                            <p className="text-white/70 text-sm text-center">
+                                @{product.name.toLowerCase().replace(/\s/g, '')}
+                            </p>
+
+                            {/* Profile Badges */}
+                            {product.details?.profileBadges !== undefined && product.details.profileBadges.length > 0 && (
+                                <div className="flex flex-wrap justify-center gap-2 mt-2">
+                                    {product.details.profileBadges.map((badge, index) => (
+                                        <TagBadge key={index} text={badge.text} color={badge.color} />
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* Main badges */}
+                            <div className="flex flex-wrap justify-center gap-3 mt-4">
+                                {hasNoOwners && (
+                                    <Badge
+                                        text="FRESH PERSONA"
+                                        bgColorClass="bg-amber-400"
+                                        icon={<FontAwesomeIcon icon={faLemon} className="w-3 h-3" />}
+                                        pulseBlur={true}
+                                    />
+                                )}
+                                {hasExtras && (
+                                    <Badge
+                                        text="COMES WITH EXTRAS"
+                                        bgColorClass="bg-indigo-600"
+                                        icon={<FontAwesomeIcon icon={faGem} className="w-3 h-3" />}
+                                    />
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="hidden md:block relative h-[200px] w-full bg-cover bg-center rounded-t-4xl"
                  style={{backgroundImage: `url(${product.image})`}}>
                 <div className="absolute backdrop-blur-xl rounded-t-4xl inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex items-end px-8 pb-6">
-
                     <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 flex gap-4">
                         {hasNoOwners && (
                             <Badge
