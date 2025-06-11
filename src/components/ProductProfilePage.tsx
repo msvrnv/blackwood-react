@@ -362,7 +362,7 @@ const ProductProfilePage: React.FC<ProductProfilePageProps> = ({product}) => {
                     <div className="lg:w-2/5 space-y-6">
                         {product.details &&
                             <SectionCard title="Profile Stats">
-                                <div className="grid grid-cols-3 gap-3">
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                     {product.details?.age && <StatItem value={product.details.age.toString()} label="Age"/>}
                                     {product.details?.height &&
                                         <StatItem value={product.details.height.feet} label="Height"/>}
@@ -397,7 +397,7 @@ const ProductProfilePage: React.FC<ProductProfilePageProps> = ({product}) => {
 
                         {product.details?.familyRelationships &&
                             <SectionCard title="Key Relationships">
-                                <div className="grid grid-cols-2 gap-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     {product.details.familyRelationships.map((person, index) => (
                                         <RelationshipNode key={index} name={person.name} relation={person.relation}
                                                           status={person.status}/>
@@ -489,7 +489,7 @@ const ProductProfilePage: React.FC<ProductProfilePageProps> = ({product}) => {
                         {
                             product.details?.advancedFeatures &&
                             <SectionCard title="Advanced Features">
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     {product.details.advancedFeatures.map((feature, index) => (
                                         <div key={index}>
                                             <p className="text-sm text-white/60 uppercase tracking-wider">{feature.title}</p>
