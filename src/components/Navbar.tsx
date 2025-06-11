@@ -12,8 +12,8 @@ function Navbar() {
     const menuItems = [
         { text: "Home", route: "/" },
         { text: "Collections", route: "/collections" },
-        { text: "Access", route: "/access" },
-        { text: "Support", route: "/support" }
+        { text: "Access", route: "/" },
+        { text: "Support", route: "/" }
     ];
 
     const toggleMenu = (e: React.MouseEvent<HTMLDivElement>) => {

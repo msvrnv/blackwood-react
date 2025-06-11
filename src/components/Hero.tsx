@@ -1,14 +1,7 @@
 import React, {useEffect, useState} from 'react';
+import {Link} from "react-router-dom";
+import type {HeroSlide} from "../services/heroSlidesService.ts";
 
-type HeroSlide = {
-    title: string;
-    description: string;
-    buttonText: string;
-    image: string;
-    alt: string;
-    background: string;
-    features: string[];
-};
 
 type HeroProps = {
     slides: HeroSlide[];
@@ -60,10 +53,12 @@ const Hero: React.FC<HeroProps> = ({slides}) => {
                                             </li>
                                         ))}
                                     </ul>
-                                    <button
-                                        className="bg-white/10 border border-white text-white px-6 py-3 rounded-full text-[1rem] font-bold uppercase w-full hover:bg-white/25 transition duration-300">
-                                        {slide.buttonText}
-                                    </button>
+                                    <Link to={slide.route}>
+                                        <button
+                                            className="bg-white/10 border border-white text-white px-6 py-3 rounded-full text-[1rem] font-bold uppercase w-full hover:bg-white/25 transition duration-300">
+                                            {slide.buttonText}
+                                        </button>
+                                    </Link>
                                 </div>
 
                                 <div className="absolute right-0 h-[550px] flex justify-end items-start overflow-hidden -mb-5

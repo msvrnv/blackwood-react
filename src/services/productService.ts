@@ -1,23 +1,50 @@
-import type { Product } from "../types/product";
+import type {Product} from "../types/product";
+import { supabase } from "./supabaseClient.ts";
 
-export const fetchProducts = async (): Promise<Product[]> => {
-    try {
-        const response = await fetch('https://grevrwdhbvzyevkdvoig.supabase.co/rest/v1/products?select=*', {
-            method: 'GET',
-            headers: {
-                'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdyZXZyd2RoYnZ6eWV2a2R2b2lnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkzNjY4MjIsImV4cCI6MjA2NDk0MjgyMn0.RHuKTSgKODSSWJgA0BB-zkEIeU_pq9_pul4I7V3aQI4',
-                'Content-Type': 'application/json',
-            },
-        });
+export interface MinifiedProduct {
+    id: number;
+    name: string;
+    image: string;
+    price: string;
+    flag: string;
+    description: string;
+    previous_owners: string;
+    extras_count: number;
+}
 
-        if (!response.ok) {
-            throw new Error(`Failed to fetch products: ${response.statusText}`);
-        }
+export const fetchAllProducts = async (): Promise<Product[]> => {
 
-        const data: Product[] = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        throw error instanceof Error ? error : new Error('An unknown error occurred');
-    }
-};
+    const { data } = await supabase.from("products").select();
+
+    if (data === null)
+        return [];
+
+    return data;
+}
+
+export const fetchProductById = async (id: number): Promise<Product | undefined> => {
+    const { data } = await supabase.from("products").select().eq('id', id).single();
+
+    if (data === null)
+        return;
+
+    return data;
+}
+
+export const fetchByCollection = async (collectionId:number): Promise<MinifiedProduct[]> => {
+    const { data } = await supabase.from("minified_product").select().contains('collections', [collectionId]).order('id', { ascending: true });
+
+    if (data === null)
+        return [];
+
+    return data;
+}
+
+export const fetchRandom = async (count: number): Promise<MinifiedProduct[]> => {
+    const { data } = await supabase.from("minified_product_random").select().limit(count);
+
+    if (data === null)
+        return [];
+
+    return data;
+}

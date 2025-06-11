@@ -1,116 +1,67 @@
-import React, {useState} from "react";
-import type {Product} from "../types/product.ts";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {
-    faChevronDown,
-    faChevronUp,
-    faUser,
-    faGlobe,
-    faBriefcase,
-    faRulerVertical,
-    faWeight,
-    faRulerCombined,
-    faVenus,
-    faHeart,
-    faHistory,
-    faDollarSign
-} from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import {Link} from "react-router-dom";
+import type {MinifiedProduct} from "../services/productService.ts";
+import Badge from "./Badge.tsx";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGem, faLemon } from '@fortawesome/free-solid-svg-icons';
 
 interface ProductCardProps {
-    product: Product;
+    product: MinifiedProduct;
 }
 
-const Panel: React.FC<{
-    title: string;
-    children: React.ReactNode;
-    defaultOpen?: boolean;
-}> = ({title, children, defaultOpen = false}) => {
-    const [open, setOpen] = useState(defaultOpen);
-
-    return (
-        <div className="bg-[#222] p-2 rounded-lg border border-[#444] mb-2">
-            <div
-                className={`text-white text-sm font-bold uppercase mb-2 flex justify-between items-center cursor-pointer`}
-                onClick={() => setOpen(!open)}
-            >
-                {title}
-                <FontAwesomeIcon icon={open ? faChevronDown : faChevronUp}/>
-            </div>
-            <div className={`text-sm text-[#bbb] ${open ? "block" : "hidden"}`}>{children}</div>
-        </div>
-    );
-};
-
 const ProductCard: React.FC<ProductCardProps> = ({product}) => {
+    const hasNoOwners = parseInt(product.previous_owners) === 0;
+    const hasExtras = product.extras_count !== undefined && product.extras_count > 0;
+
     return (
         <div className="flex flex-col h-full bg-[#1a1a1a] text-white border border-[#666] rounded-2xl overflow-hidden transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_0_15px_#6666] min-w-[220px]">
             <div className="relative w-full h-[240px] overflow-hidden">
+                <Link to={`/product/${product.id}`}>
                 <img src={product.image} alt={`${product.name} Skinsuit`}
                      className="w-full h-full object-cover object-center"/>
-                <img src={product.flag} alt={`${product.ethnicity} Flag`}
+                </Link>
+                <div className="absolute top-2 left-2 flex flex-col gap-1">
+                    {hasNoOwners && (
+                        <Badge
+                            text="FRESH PERSONA"
+                            bgColorClass="bg-amber-400"
+                            icon={<FontAwesomeIcon icon={faLemon} className="w-3 h-3" />}
+                        />
+                    )}
+                    {hasExtras &&
+                        <Badge
+                            text="COMES WITH EXTRAS"
+                            bgColorClass="bg-indigo-600"
+                            icon={<FontAwesomeIcon icon={faGem} className="w-3 h-3" />}
+                        />
+                    }
+                </div>
+
+                <img src={product.flag} alt="Flag"
                      className="absolute bottom-1 right-1 w-[30px] h-[20px] border border-white rounded-sm"/>
             </div>
-            <div className="p-4 flex flex-col gap-2 flex-grow">
+
+            <div className="p-4 flex flex-col gap-3 flex-grow">
                 <h2 className="text-xl font-medium uppercase">{product.name}</h2>
                 <p className="text-sm italic text-[#ddd]">{product.description}</p>
-
-                <Panel title="Vital Stats">
-                    <p className="mt-1"><FontAwesomeIcon icon={faUser} className="mr-2 w-3"/> Age: {product.age}</p>
-                    <p className="mt-1"><FontAwesomeIcon icon={faGlobe}
-                                                         className="mr-2 w-3 mt-2"/> Ethnicity: {product.ethnicity}</p>
-                    <p className="mt-1"><FontAwesomeIcon icon={faBriefcase}
-                                                         className="mr-2 w-3"/> Background: {product.background}</p>
-                    <p className="mt-1"><FontAwesomeIcon icon={faRulerVertical}
-                                                         className="mr-2 w-3"/> Height: {product.height.feet} ({product.height.meters})
-                    </p>
-                    <p className="mt-1"><FontAwesomeIcon icon={faWeight}
-                                                         className="mr-2 w-3"/> Weight: {product.weight.pounds} ({product.weight.kilograms})
-                    </p>
-                    <p className="mt-1"><FontAwesomeIcon icon={faRulerCombined}
-                                                         className="mr-2 w-3"/> Measurements: {product.measurements.inches} ({product.measurements.cm} cm)
-                    </p>
-                </Panel>
-
-                <Panel title="Fetish Profile">
-
-                    <p className="mt-1">
-                        <FontAwesomeIcon icon={faVenus} className="mr-2 w-3"/>
-                        Pussy Type: {product.pussyType}</p>
-                    <p className="mt-1">
-                        <FontAwesomeIcon icon={faHeart} className="mr-2 w-3"/>
-                        Orientation: {product.sexualPreference}</p>
-                    <div className="flex flex-wrap gap-1 mt-2">
-                        {product.kinks.map((kink, i) => (
-                            <span key={i}
-                                  className="bg-gray-200 text-gray-800 px-2 py-1 rounded-full text-xs font-bold">
-                                {kink}
-                            </span>
-                        ))}
-                    </div>
-                </Panel>
-
-                <Panel title="Ownership" defaultOpen>
-                    <p className="mt-1">
-                        <FontAwesomeIcon icon={faHistory} className="mr-2 w-3" />
-                        Previous Owners: {product.previousOwners}</p>
-                    <p className="mt-1">
-                        <FontAwesomeIcon icon={faDollarSign} className="mr-2 w-3" />
-                        Price: {product.price}
-                    </p>
-                </Panel>
-
-                <div className="flex flex-wrap gap-1">
-                    {product.personality.map((tag, i) => (
-                        <span key={i} className="bg-gray-200 text-gray-800 px-2 py-1 rounded-full text-xs font-bold">
-                            {tag}
-                        </span>
-                    ))}
-                </div>
                 <div className="flex-grow"></div>
-                <button
-                    className="mt-3 px-4 py-2 border border-white text-white rounded-full text-sm font-bold uppercase hover:bg-white/15 transition">
-                    Buy Now
-                </button>
+
+                {/* Modern Price Display */}
+                <div className="relative w-full mb-3 mt-5">
+                    <div className="absolute -top-5 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#444] to-transparent"></div>
+                    <div className="flex items-center justify-center gap-1">
+                        <span className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
+                            {product.price.toLocaleString()}
+                        </span>
+                    </div>
+                </div>
+
+                {/* Buy Now Button */}
+                <Link to={`/product/${product.id}`}>
+                    <button className="w-full px-4 py-3 bg-gradient-to-br from-[#333] to-[#222] hover:from-[#444] hover:to-[#333] text-white rounded-lg text-sm font-bold uppercase transition-all duration-200 border border-[#444] hover:border-[#555] shadow hover:shadow-[0_0_10px_rgba(251,191,36,0.2)]">
+                        Buy Now
+                    </button>
+                </Link>
             </div>
         </div>
     );
