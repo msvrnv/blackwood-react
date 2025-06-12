@@ -39,8 +39,17 @@ const CollectionPage = () => {
                 setCollection(collection);
 
                 const products = await fetchByCollection(parseInt(collectionId));
-                console.log(products);
-                setProducts(products);
+
+                const sortedProducts = [...products].sort((a, b) => {
+                    // If both are special or both are not special, sort by ID
+                    if (a.is_special === b.is_special) {
+                        return a.id - b.id;
+                    }
+                    // Sort special products first
+                    return b.is_special ? 1 : -1;
+                });
+
+                setProducts(sortedProducts);
                 setLoading(false);
             } catch {
                 setError("Failed to load products. Please try again later.");

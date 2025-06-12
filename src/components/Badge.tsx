@@ -2,7 +2,7 @@
 import React from "react";
 
 interface BadgeProps {
-    text: string;
+    text?: string;
     bgColorClass?: string;
     icon?: React.ReactNode;
     pulseBlur?: boolean;

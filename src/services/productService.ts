@@ -10,6 +10,8 @@ export interface MinifiedProduct {
     description: string;
     previous_owners: string;
     extras_count: number;
+    is_special: boolean;
+    is_celebrity: boolean;
 }
 
 export const fetchAllProducts = async (): Promise<Product[]> => {

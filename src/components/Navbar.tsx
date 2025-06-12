@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
 import * as React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import {Auth} from "./Auth.tsx";
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -57,13 +58,16 @@ function Navbar() {
                         <Link key={item.text} to={item.route} onClick={closeMenu} className="mx-[15px] text-white no-underline font-normal transition-colors duration-300 hover:text-[#ccc]">{item.text}</Link>
                     ))}
                 </div>
-                <div className="max-md:hidden flex items-center gap-2 bg-[#222] px-3 py-1.5 rounded-[20px]">
-                    <input
-                        className="bg-transparent border-none outline-none text-white text-[0.9rem]"
-                        type="text"
-                        placeholder="Search..."
-                    />
-                    <FontAwesomeIcon icon={faSearch} className="text-white" />
+                <div className="flex items-center gap-4">
+                    <div className="max-md:hidden flex items-center gap-2 bg-[#222] px-3 py-1.5 rounded-[20px]">
+                        <input
+                            className="bg-transparent border-none outline-none text-white text-[0.9rem]"
+                            type="text"
+                            placeholder="Search..."
+                        />
+                        <FontAwesomeIcon icon={faSearch} className="text-white" />
+                    </div>
+                    <Auth />
                 </div>
             </div>
 
@@ -76,6 +80,9 @@ function Navbar() {
                 {menuItems.map(item => (
                     <Link key={item.text} to={item.route} onClick={closeMenu} className="text-white px-5 py-[15px] no-underline border-b border-[#333] hover:bg-[#222]">{item.text}</Link>
                 ))}
+                <div className="px-5 py-[15px] border-b border-[#333]">
+                    <Auth />
+                </div>
             </div>
         </div>
     );
