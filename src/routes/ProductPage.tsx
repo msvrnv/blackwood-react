@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import type {Product} from "../types/product.ts";
 import {fetchProductById} from "../services/productService.ts";
 
+
 const ProductPage = () => {
     const { productId } = useParams();
 

@@ -5,10 +5,11 @@ export interface Product {
     flag: string;
     price: string;
     description: string;
-    collections: number[];
+    collections?: number[];
     details?: {
         age: number;
-        ethnicity: string;
+        quotes?: string[];
+        ethnicity?: string;
         biometry: string;
         maxWear: string;
         condition : string;
@@ -19,42 +20,42 @@ export interface Product {
         pussy_type: string;
         sexual_preference: string;
         previous_owners: number;
-        kinks: Array<{
+        kinks?: Array<{
             text: string;
             color?: string;
         }>;
-        extras: Array<{
+        extras?: Array<{
             name: string,
             description: string,
             value: string,
             exclusive: boolean
         }>;
-        appearance: string[];
-        personality: string[];
-        exploitationScenarios: Array<{
+        appearance?: string[];
+        personality?: string[];
+        exploitationScenarios?: Array<{
             title: string;
             description: string;
         }>;
         previousOwnerNote: string;
-        personaHistory: Array<{
+        personaHistory?: Array<{
             date: string;
             title: string;
             description: string;
         }>;
-        familyRelationships: Array<{
+        familyRelationships?: Array<{
             name: string;
             relation: string;
             status?: string;
         }>;
-        profileBadges: Array<{
+        profileBadges?: Array<{
             text: string;
             color: string;
         }>;
-        advancedFeatures: Array<{
+        advancedFeatures?: Array<{
             title: string;
             description: string;
         }>;
-        accessories: Array<{
+        accessories?: Array<{
             name: string;
             type: string;
             description: string;
