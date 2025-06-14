@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import type {MinifiedProduct} from "../services/productService.ts";
-import Badge from "./Badge.tsx";
+import Badge from "./product-profile-sections/Badge.tsx";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGem, faLemon, faWandSparkles, faStar, faCrown } from '@fortawesome/free-solid-svg-icons';
 

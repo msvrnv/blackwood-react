@@ -20,6 +20,10 @@ export interface Product {
         pussy_type: string;
         sexual_preference: string;
         previous_owners: number;
+        questions_and_answers?: Array<{
+            question: string;
+            answer: string;
+        }>;
         kinks?: Array<{
             text: string;
             color?: string;
